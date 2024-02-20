@@ -74,11 +74,11 @@ server.listen(PORT);
 // Socket.IO
 io.on("connection", (socket) => {
   console.log(`Socket ${socket.id} connected`);
-  connectDB();
   const count = io.engine.clientsCount;
   console.log("number of users is", count);
   socket.on("writeComment", async (data) => {
     try {
+      connectDB();
       const postId = data.postId;
       const memberId = data.owner;
       const userName = data.userName;
@@ -101,6 +101,7 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("writePostInPosts", async (data) => {
+    connectDB();
     const count = io.engine.clientsCount;
     console.log("number of users is", count);
     try {
