@@ -2,9 +2,11 @@
 const PostModel = require("../models/PostModel");
 const SpaceModel = require("../models/SpaceModel");
 const CommentsModel = require("../models/CommentModel");
+const connectDB = require("../config/db");
 
 const getPosts = async (req, res) => {
   try {
+    await connectB()
     const { spaceId } = req.params;
     const pageNum = Number(req.query.pageNum) || 1;
     const pageSize = Number(req.query.pageSize) || 3;
@@ -64,6 +66,7 @@ const getPosts = async (req, res) => {
 
 const getPost = async (req, res) => {
   try {
+    await connectDB()
     const { postId } = req.params;
     const post = await PostModel.findById(postId);
     return res.status(200).json({ success: "Found post", data: post });
@@ -75,6 +78,7 @@ const getPost = async (req, res) => {
 
 const getPostComments = async (req, res) => {
   try {
+    await connectDB()
     const { postId } = req.params;
 
     const isRefreshed = req.query.isRefreshed || false;
@@ -134,6 +138,7 @@ const getPostComments = async (req, res) => {
 };
 const createComment = async (req, res) => {
   try {
+    await connectDB()
     const { postId } = req.params;
     const memberId = req.user._id;
     const userName = req.user.userName;
@@ -169,6 +174,7 @@ const createComment = async (req, res) => {
 
 const createPost = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.params;
     const userId = req.user._id;
     const userName = req.user.userName;
