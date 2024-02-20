@@ -23,7 +23,6 @@ const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, s
       // socket io
       setLoadDuringPosting(true);
       socket.emit("writePostInPosts", { description: postData.description, owner: [{ memberId: user._id, userName: user.userName }], postedAt: new Date(), spaceId: spaceId, userId: user._id, userName: user.userName });
-      setLoadDuringPosting(false);
       // socket io
       // dispatch(createPost({ spaceId, description: postData })).unwrap().then((res) => {
       //   setLoading(false)
