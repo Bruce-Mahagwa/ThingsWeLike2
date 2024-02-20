@@ -5,9 +5,11 @@ const {
 } = require("../utils/passwordOperations");
 const { generateCookie } = require("../utils/generateCookie");
 const UserModel = require("../models/UserModel");
+const connectDB = require("../config/db");
 
 const getAllUsers = async (req, res) => {
   try {
+    await connectDB()
     const users = await UserModel.find({}).select("-password");
     return res.json(users);
   } catch (e) {
@@ -18,6 +20,7 @@ const getAllUsers = async (req, res) => {
 
 const registerUser = async (req, res) => {
   try {
+    await connectDB()
     const userName = req.body?.userName;
     const email = req.body?.email;
     const password = req.body?.password;
@@ -72,6 +75,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
+    await connectDB()
     const email = req.body?.email;
     const password = req.body?.password;
     const doNotLogOut = req.body?.doNotLogOut;
@@ -121,6 +125,7 @@ const loginUser = async (req, res) => {
 
 const saveUserProfile = async (req, res) => {
   try {
+    await connectDB()
     const user = await UserModel.findById(req.user._id); // gotten from a custom middleware
     const avatar = req.body?.avatar;
     const firstName = req.body?.firstName;
@@ -149,6 +154,7 @@ const saveUserProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
   try {
+    await connectDB()
     const { id } = req.params;
     const user = await UserModel.findById(id).select("-password");
     return res.status(200).json({ user });
@@ -162,6 +168,7 @@ const getUserProfile = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
+    await connectDB()
     const { id } = req.params;
     const user = await UserModel.findByIdAndDelete(id);
     res.send("User has been deleted");
