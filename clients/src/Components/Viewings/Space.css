@@ -22,7 +22,7 @@
 .viewing-container-item-albums-item-container {
   margin-top: 1em;
 }
-.user-space-details *:not(:last-child) {
+.user-space-details * {
   margin-bottom: 0.8em;
 }
 .load-btn {
