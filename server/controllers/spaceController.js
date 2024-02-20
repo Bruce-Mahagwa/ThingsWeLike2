@@ -24,8 +24,7 @@ const getSpaces = async (req, res) => {
       pageSize,
     });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not find spaces" });
+    return res.status(500).json({ error: "Could not find spaces", e: e });
   }
 };
 
@@ -57,8 +56,7 @@ const searchSpaces = async (req, res) => {
       pageSize,
     });
   } catch (e) {
-    console.log(e);
-    return res.status(401).json({ error: "Could not load searched spaces" });
+    return res.status(401).json({ error: "Could not load searched spaces", e: e });
   }
 };
 
@@ -74,8 +72,7 @@ const getSpace = async (req, res) => {
       message: userId ? "In Space" : "Not in Space",
     });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not find space" });
+    return res.status(500).json({ error: "Could not find space", e: e });
   }
 };
 
@@ -102,7 +99,7 @@ const getUserSpaces = async (req, res) => {
       .json({ success: "Found user spaces", data: userSpaces });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: "Could not get user spaces" });
+    return res.status(500).json({ error: "Could not get user spaces", e: e });
   }
 };
 
@@ -137,8 +134,7 @@ const createSpace = async (req, res) => {
       .status(200)
       .json({ success: "space has been created", data: space });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not create space" });
+    return res.status(500).json({ error: "Could not create space" , e: e});
   }
 };
 
@@ -154,7 +150,7 @@ const checkCreaterofSpace = async (req, res) => {
       return res.status(200).json({ data: true });
     }
   } catch (e) {
-    return res.status(500).json({ error: "Could not check creator" });
+    return res.status(500).json({ error: "Could not check creator", e: e });
   }
 };
 
@@ -172,8 +168,7 @@ const editSpace = async (req, res) => {
     await space.save();
     return res.status(200).json({ success: "Space has been updated" });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not update space" });
+    return res.status(500).json({ error: "Could not update space", e: e});
   }
 };
 const joinSpace = async (req, res) => {
@@ -202,8 +197,7 @@ const joinSpace = async (req, res) => {
       .status(200)
       .json({ success: "You are now a member of this space", data: member });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not join this space." });
+    return res.status(500).json({ error: "Could not join this space.", e: e });
   }
 };
 
@@ -227,7 +221,7 @@ const checkIfUserIsInSpace = async (req, res) => {
     console.log(e);
     return res
       .status(500)
-      .json({ error: "Could not verify if user is in the space" });
+      .json({ error: "Could not verify if user is in the space", e: e });
   }
 };
 module.exports = {
