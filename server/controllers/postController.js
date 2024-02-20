@@ -6,7 +6,7 @@ const connectDB = require("../config/db");
 
 const getPosts = async (req, res) => {
   try {
-    await connectB()
+    await connectDB()
     const { spaceId } = req.params;
     const pageNum = Number(req.query.pageNum) || 1;
     const pageSize = Number(req.query.pageSize) || 3;
@@ -71,7 +71,7 @@ const getPost = async (req, res) => {
     return res.status(200).json({ success: "Found post", data: post });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: "Could not fetch post", e: e });
+    return res.status(500).json({ error: "Could not fetch post", e: e.message });
   }
 };
 
@@ -84,9 +84,9 @@ const getPostComments = async (req, res) => {
     const pageNum = Number(req.query.pageNum) || 1;
     const pageSize = Number(req.query.pageSize) || 1;
     const posts = await PostModel.findById(postId).select("comments");
-    console.log("comments", posts);
+    
     const total = posts.comments.length;
-    console.log(isRefreshed, total, pageNum, pageSize);
+    
     let arr = [];
     if (posts.comments.length > 0) {
       if (isRefreshed !== "false" && (isRefreshed === "true" || isRefreshed)) {
@@ -122,7 +122,7 @@ const getPostComments = async (req, res) => {
         $in: [...arr],
       },
     }).sort({ postedAt: -1 });
-    console.log(comments, "comments");
+    
     return res.status(200).json({
       success: "Post comments found",
       data: comments,
@@ -131,7 +131,7 @@ const getPostComments = async (req, res) => {
       pageSize,
     });
   } catch (e) {
-    return res.status(500).json({ error: "could not find comments", e: e });
+    return res.status(500).json({ error: "could not find comments", e: e.message });
   }
 };
 const createComment = async (req, res) => {
@@ -165,7 +165,7 @@ const createComment = async (req, res) => {
       .status(200)
       .json({ success: "Comment created", data: newComment });
   } catch (e) {
-    return res.status(500).json({ error: "Could not create post", e: e });
+    return res.status(500).json({ error: "Could not create post", e: e.message });
   }
 };
 
@@ -199,7 +199,7 @@ const createPost = async (req, res) => {
       .status(200)
       .json({ success: "You have successfully made a post", data: post });
   } catch (e) {
-    return res.status(500).json({ error: "Cannot create post", e: e });
+    return res.status(500).json({ error: "Cannot create post", e: e.message });
   }
 };
 
