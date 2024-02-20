@@ -15,7 +15,7 @@ const CommentsModel = require("./models/CommentModel");
 const app = express();
 const PORT = 4000;
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const io = require("socket.io")(server, { cors: { origin: "https://things-we-like-client.vercel.app" } });
 
 // middleware
 // app.use( 
@@ -78,7 +78,7 @@ io.on("connection", (socket) => {
   console.log("number of users is", count);
   socket.on("writeComment", async (data) => {
     try {
-      // connectDB();
+      connectDB();
       const postId = data.postId;
       const memberId = data.owner;
       const userName = data.userName;
@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("writePostInPosts", async (data) => {
-    // connectDB();
+    connectDB();
     const count = io.engine.clientsCount;
     console.log("number of users is", count);
     try {
