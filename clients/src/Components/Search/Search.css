@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.search-bar-container {
+  width: 100%;
+  padding: 1em 0;
+}
+.search-bar-container h2 {
+  margin-bottom: 1em;
+  text-align: center;
+}
+.search-bar-input {
+  width: 100%;
+  outline: none;
+  padding: 0.5em;
+  border: 2px solid black;
+}
+.search-bar-container svg {
+  cursor: pointer;
+  width: 40px;
+}
+.search-bar {
+  display: flex;
+  gap: 0.5em;
+}
+@media screen and (min-width: 450px) {
+  .search-bar-container {
+    padding: 1em 0.5em;
+  }
+}	
+@media screen and (min-width: 600px) {
+  .search-bar-container {
+    padding: 1em 1em;
+  }
+  .search-bar-container svg {
+    width: 60px;
+  }
+  .search-bar-input {
+    padding: 0.8em;
+  }
+}	
