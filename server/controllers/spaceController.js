@@ -1,9 +1,11 @@
 // files
 const SpaceModel = require("../models/SpaceModel");
 const UserModel = require("../models/UserModel");
+const connectDB = require("../config/db");
 
 const getSpaces = async (req, res) => {
   try {
+    await connectDB()
     // pagination
     const pageNum = Number(req.query.pageNum) || 1;
     const pageSize = Number(req.query.pageSize) || 1;
@@ -29,6 +31,7 @@ const getSpaces = async (req, res) => {
 
 const searchSpaces = async (req, res) => {
   try {
+    await connectDB()
     // pagination
     const pageNum = Number(req.query.pageNum) || 1;
     const pageSize = Number(req.query.pageSize) || 1;
@@ -61,6 +64,7 @@ const searchSpaces = async (req, res) => {
 
 const getSpace = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.params;
     const userId = req?.user?._id;
     const space = await SpaceModel.findById(spaceId);
@@ -77,6 +81,7 @@ const getSpace = async (req, res) => {
 
 const getUserSpaces = async (req, res) => {
   try {
+    await connectDB()
     const userId = req.user._id;
     const user = await UserModel.findById(userId);
     const spaces = user.spaces;
@@ -103,6 +108,7 @@ const getUserSpaces = async (req, res) => {
 
 const createSpace = async (req, res) => {
   try {
+    await connectDB()
     const {
       spaceName,
       category,
@@ -138,6 +144,7 @@ const createSpace = async (req, res) => {
 
 const checkCreaterofSpace = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.params;
     const userId = req.user._id;
     const space = await SpaceModel.findById(spaceId).select("createdBy");
@@ -153,6 +160,7 @@ const checkCreaterofSpace = async (req, res) => {
 
 const editSpace = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.params;
     const userId = req.user._id;
     const space = await SpaceModel.findById(spaceId);
@@ -170,6 +178,7 @@ const editSpace = async (req, res) => {
 };
 const joinSpace = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.body;
     const userId = req.user._id;
     const userName = req.user.userName;
@@ -200,6 +209,7 @@ const joinSpace = async (req, res) => {
 
 const checkIfUserIsInSpace = async (req, res) => {
   try {
+    await connectDB()
     const { spaceId } = req.params;
 
     const userId = req.user._id;
