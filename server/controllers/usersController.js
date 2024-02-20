@@ -68,7 +68,7 @@ const registerUser = async (req, res) => {
   } catch (e) {
     res.status(404).json({
       error: "Could not register you at the moment. Please try later",
-      e: e
+      e: e.message
     });
   }
 };
@@ -120,7 +120,7 @@ const loginUser = async (req, res) => {
         .json({ error: "Wrong password. Please try again" });
     }
   } catch (e) {
-    res.status(401).json({ error: "Could not login user", e: e });
+    res.status(401).json({ error: "Could not login user", e: e.message });
   }
 };
 
@@ -149,7 +149,7 @@ const saveUserProfile = async (req, res) => {
     console.log(e);
     res
       .status(404)
-      .json({ error: "Could not update profile. Please try again later", e: e });
+      .json({ error: "Could not update profile. Please try again later", e: e.message });
   }
 };
 
@@ -163,7 +163,7 @@ const getUserProfile = async (req, res) => {
     console.log(e);
     return res
       .status(404)
-      .json({ error: "Could not load user profile. Please reload the page", e: e });
+      .json({ error: "Could not load user profile. Please reload the page", e: e.message });
   }
 };
 
@@ -185,7 +185,7 @@ const logOutUser = (req, res) => {
       .clearCookie("access_token")
       .send("You have been logged out. Come again soon!!!");
   } catch (e) {
-    return res.status(500).json({ error: "Could not logout", e: e });
+    return res.status(500).json({ error: "Could not logout", e: e.message });
   }
 };
 
