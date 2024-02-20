@@ -16,7 +16,7 @@ const Spaces = ({ getSpaces }) => {
   const [muiPage, setMuiPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [localError, setLocalError] = useState(false);
-  const pageNum = page.get("pageNum");
+  let pageNum = page.get("pageNum");
 
   useEffect(() => {
     if (!pageNum) {
