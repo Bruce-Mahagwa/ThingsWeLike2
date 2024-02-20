@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/*typography*/
+.official-logo {
+  width: 40px;
+  cursor: pointer;
+}
+.official-logo img {
+  width: 100%;
+}
+.nav-item-controls svg {
+  width: 20px;
+  cursor: pointer;
+}
+.toggle-menu * {
+  cursor: pointer;
+}
+.toggle-menu svg {
+  color: white;
+  cursor: pointer;
+  width: 40px;
+}
+a {
+  text-decoration: none;
+}
+.button-nav {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+#logout {
+  background: transparent;
+  color: black;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+/*typography*/
+
+/*containers*/
+#main-header {
+  background: black;
+  color: white;
+  padding: 0.3 0em;
+}
+.logo-container {
+  display: flex;
+  justify-content: space-between;
+}
+.nav-container {
+  position: relative;
+}
+.main-nav {
+  display: none;
+  position: absolute;
+  background: white;
+  color: black;
+  width: 100%;
+  padding: 1em 0 1em 0.2em;
+  transition-property: display;
+  transition-duration: 0.5s;
+  z-index: 2000;
+}
+.nav-items-container {
+  display: none;
+  padding-left: 0.3em;
+  transition-property: display;
+  transition-duration: 0.5s;
+}
+.nav-item {
+  padding-left: 0.4em;
+}
+.nav-item:not(:last-child) {
+  padding-bottom: 0.3em;
+}
+.nav-items-container a:not(:last-child) {
+  margin-bottom: 0.2em;
+}
+.nav-items-container a {
+  color: rgba(0, 0, 0, 0.8);
+  background: #fffff2;
+  border-left: 4px solid rgba(0, 0, 0, 0.7);
+  padding: 0.2em;
+  border-top-right-radius: 8px;
+}
+.nav-items-container a:hover {
+  border-left: 4px solid green;
+  background: rgba(240, 234, 214);
+}
+.nav-item-controls {
+  display: flex;
+  justify-content: space-between;	
+  cursor: pointer;
+}
+/*containers*/
+
+/*header banner*/
+#header-banner {
+  background: black;
+}
+.header-banner-content {
+  background-image: url("./Logo_3.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 130px;
+}
+/*header banner*/
+/*show classes*/
+
+.toggle-main-nav {
+  display: block;
+}
+.toggle-nav-items-container {
+  display: flex;
+  flex-direction: column;
+}
+/*show classes*/
+
+@media screen and (min-width: 576px) {
+  /*topography*/
+  .official-logo {
+    width: 50px;
+    cursor: pointer;
+  }
+  #logout {
+    color: white;
+  }
+  .toggle-menu {
+    display: none;
+  }
+  .nav-item-controls {
+    justify-content: flex-start;
+  }
+  .button-nav {
+    background: none;
+    color: white;
+  }
+  /*topography*/
+
+  /*containers*/
+  .nav-container {
+    width: 100%;
+    padding-top: 0.3em;
+    display: flex;
+    align-items: baseline;
+  }
+  .main-nav {
+    display: flex;
+    justify-content: space-around;
+    right: 1.5em;
+    padding: 0.2em 0;
+    width: 90%;
+    background: none;
+    color: white;
+    transition-property: none;
+  }
+  .nav-item {
+    position: relative;
+  }
+  .nav-items-container {
+    position: absolute;
+    background: white;
+    margin-top: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    min-width: 120px;
+  }
+  .nav-items-container a:not(:last-child) {
+    margin-bottom: 0.4em;
+  }
+  .nav-items-container a {
+    /*border-left: 4px solid rgba(0, 0, 0, 0.7);*/
+  }
+  .header-banner-content {
+    min-height: 170px;
+  }
+  /*containers*/
+}
+
+@media screen and (min-width: 776px) {
+  .nav-items-container {
+    min-width: 150px;
+  }
+  .official-logo {
+    width: 50px;
+  }
+  .nav-item-controls svg {
+    width: 25px;
+    cursor: pointer;
+  }
+  .header-banner-content {
+    min-height: 190px;
+  }
+}
+@media screen and (min-width: 996px) {
+  .main-nav {
+    width: 75%;
+  }
+  .nav-items-container {
+    min-width: 170px;
+  }
+  .header-banner-content {
+    min-height: 210px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .main-nav {
+    width: 65%;
+  }
+  .official-logo {
+    width: 50px;
+  }
+  .nav-item-controls svg {
+    width: 30px;
+    cursor: pointer;
+  }
+  .header-banner-content {
+    min-height: 230px;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .main-nav {
+    width: 55%;
+  }
+  .header-banner-content {
+    min-height: 250px;
+  }
+}

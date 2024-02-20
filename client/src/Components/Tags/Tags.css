@@ -1,0 +1,39 @@
+:root {
+  --main-bg: rgb(15, 0, 65);
+}
+
+#tags {
+  background: var(--main-bg);
+}
+#tags-container {
+  margin: 0 auto;
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.tags-container-item {
+  background: white;
+  padding: 0.3em;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+}
+.tags-container-item:hover {
+  opacity: 0.8;
+}
+@media screen and (min-width: 500px) {
+  #tags-container {
+    width: 80%;
+  }	
+}
+@media screen and (min-width: 800px) {
+  #tags-container {
+    width: 60%;
+  }	
+}
+@media screen and (min-width: 1100px) {
+  #tags-container {
+    width: 50%;
+  }	
+}
