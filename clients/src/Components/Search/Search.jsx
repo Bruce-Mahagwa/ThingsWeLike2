@@ -19,7 +19,7 @@ const Search = ({ getSpaces }) => {
   const [muiPage, setMuiPage] = useState(1);
 
   // query variables
-  const pageNum = query.get("pageNum") || 1
+  let pageNum = query.get("pageNum") || 1
   let searchQueryProvided = query.get("searchQuery") || ""
 
   const [searchTerm, setSearchTerm] = useState(searchQueryProvided);
