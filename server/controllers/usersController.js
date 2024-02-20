@@ -53,7 +53,7 @@ const registerUser = async (req, res) => {
           new_user.email,
           new_user.isAdmin,
         ),
-        { httpOnly: true },
+        { httpOnly: true, secure: true, sameSite: "None" },
       )
       .status(201)
       .json({
@@ -92,6 +92,8 @@ const loginUser = async (req, res) => {
     if (user && comparePassword(password, user.password)) {
       let cookieParams = {
         httpOnly: true,
+        secure: true,
+        sameSite: "None" 
       };
       if (doNotLogOut) {
         cookieParams = { ...cookieParams, maxAge: 1000 * 60 * 60 * 24 * 7 };
