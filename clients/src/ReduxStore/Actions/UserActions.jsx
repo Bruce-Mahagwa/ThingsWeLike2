@@ -40,7 +40,7 @@ export const registerUser = createAsyncThunk("users/registerUser", async ({ user
 
 export const logoutUser = createAsyncThunk("users/logoutUser", async (_, { rejectWithValue }) => {
   try {
-    // document.location.href = "/";
+    document.location.href = "/";
     await axios.get("/users/user/logout")
     localStorage.removeItem("userInfo");
     sessionStorage.removeItem("userInfo");
