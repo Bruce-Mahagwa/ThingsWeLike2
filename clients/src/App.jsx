@@ -31,7 +31,7 @@ import axios from "axios"
 export default function App() {
   // default axios urls and settings
   // axios.defaults.baseURL = "https://a62cd8cb-6249-47ab-8ce2-89e6d92956a3-00-2so2id1sckb1k.picard.replit.dev"
-  axios.defaults.baseURL = "http://localhost:4000"
+  axios.defaults.baseURL = "https://things-we-like-api.vercel.app"
   axios.defaults.withCredentials = true;
 
   return (
