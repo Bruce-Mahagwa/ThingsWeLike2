@@ -27,8 +27,8 @@ const io = require("socket.io")(server, { cors: { origin: "*" } });
 // );
 
 const whitelist = [
-  "http://localhost:3000",
-  "https://beab0571-1629-4e09-b29e-735d042e23b3-00-232g9pucjyc96.spock.replit.dev",
+  "https://things-we-like-client.vercel.app",
+  "https://things-we-like-client.vercel.app/"
 ];
 const corsoptions = {
   origin: function (origin, callback) {
