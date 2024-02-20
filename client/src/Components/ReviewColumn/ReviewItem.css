@@ -1,0 +1,31 @@
+:root {
+  --blue1: rgba(3, 128, 255, 1);
+  --blue2: rgba(3, 128,, 255, 0.5);
+};
+.reviewcolumn-container {
+  padding: 0.5em;
+}
+.reviewcolumn-container-item-description {
+  margin-top: 0.7em;
+  margin-bottom: 0.5em;
+}
+.reviewcolumn-container-item-more-options-btns {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.review-btns {
+  background: none;
+  outline: none;
+  color: var(--blue1);
+  border: none;
+  cursor: pointer;
+}
+.review-btns:hover {
+  filter: brightness(1.5);
+}
+.replies-container {
+  padding-left: 1em;
+  background: var(--blue2);
+}

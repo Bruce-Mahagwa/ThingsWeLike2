@@ -1,0 +1,42 @@
+
+:root {
+  --blue1: rgba(3, 138, 255);
+}
+#single-post-page {
+  padding: 1em;
+}
+.main-post {
+  border: 2px solid var(--blue1);
+  padding: 1em;
+}
+.main-post-links {
+  margin-top: 1em;
+}
+.main-post-links *:not(:last-child) {
+  margin-right: 1em;
+}
+
+.load-btn {
+  background: transparent;
+  border: 2px solid black;
+  padding: 0.5em;
+  cursor: pointer;
+  display: inline-block;
+}
+.load-btn:hover {
+  transform: scale(1.05)
+}
+
+.comments h2 {
+  text-align: center;
+  margin: 0.5em 0;
+}
+.comments-section {
+  padding: 0.5em;
+}
+.comments-section-item:not(:last-child) {
+  margin-bottom: 1em;
+}
+ .load-comments {
+    margin-left: 0.5em;
+}
