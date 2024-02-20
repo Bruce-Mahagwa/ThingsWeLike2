@@ -1,6 +1,7 @@
 // dependencies
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import {Navigate} from "react-router-dom"
 
 export const loginUser = createAsyncThunk("users/loginUser", async ({ email, password, doNotLogOut }, { rejectWithValue }) => {
   try {
@@ -40,11 +41,11 @@ export const registerUser = createAsyncThunk("users/registerUser", async ({ user
 
 export const logoutUser = createAsyncThunk("users/logoutUser", async (_, { rejectWithValue }) => {
   try {
-    document.location.href = "/";
     await axios.get("/users/user/logout")
     localStorage.removeItem("userInfo");
     sessionStorage.removeItem("userInfo");
     sessionStorage.removeItem("userProfile");
+    document.location.href = "/";
   }
   catch (e) {
     if (e.response.data.error) {
