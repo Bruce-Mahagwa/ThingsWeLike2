@@ -59,7 +59,7 @@ const getPosts = async (req, res) => {
       spaceName: space.spaceName,
     });
   } catch (e) {
-    return res.status(500).json({ error: "Could not load posts", e: e });
+    return res.status(500).json({ error: "Could not load posts", e: e.message, err: e });
   }
 };
 
