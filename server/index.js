@@ -83,7 +83,7 @@ io.on("connection", (socket) => {
   console.log("number of users is", count);
   socket.on("writeComment", async (data) => {
     try {
-      connectDB();
+      await connectDB();
       const postId = data.postId;
       const memberId = data.owner;
       const userName = data.userName;
@@ -106,7 +106,7 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("writePostInPosts", async (data) => {
-    connectDB();
+    await connectDB();
     const count = io.engine.clientsCount;
     console.log("number of users is", count);
     try {
