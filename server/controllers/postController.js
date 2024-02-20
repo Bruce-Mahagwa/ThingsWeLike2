@@ -59,8 +59,7 @@ const getPosts = async (req, res) => {
       spaceName: space.spaceName,
     });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not load posts" });
+    return res.status(500).json({ error: "Could not load posts", e: e });
   }
 };
 
@@ -72,7 +71,7 @@ const getPost = async (req, res) => {
     return res.status(200).json({ success: "Found post", data: post });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: "Could not fetch post" });
+    return res.status(500).json({ error: "Could not fetch post", e: e });
   }
 };
 
@@ -132,8 +131,7 @@ const getPostComments = async (req, res) => {
       pageSize,
     });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "could not find comments" });
+    return res.status(500).json({ error: "could not find comments", e: e });
   }
 };
 const createComment = async (req, res) => {
@@ -167,8 +165,7 @@ const createComment = async (req, res) => {
       .status(200)
       .json({ success: "Comment created", data: newComment });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Could not create post" });
+    return res.status(500).json({ error: "Could not create post", e: e });
   }
 };
 
@@ -202,8 +199,7 @@ const createPost = async (req, res) => {
       .status(200)
       .json({ success: "You have successfully made a post", data: post });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ error: "Cannot create post" });
+    return res.status(500).json({ error: "Cannot create post", e: e });
   }
 };
 
