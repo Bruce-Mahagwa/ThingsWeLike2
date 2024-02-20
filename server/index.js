@@ -15,7 +15,12 @@ const CommentsModel = require("./models/CommentModel");
 const app = express();
 const PORT = 4000;
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "https://things-we-like-client.vercel.app" } });
+const io = require("socket.io")(server, { 
+  cors: { 
+  origin: "https://things-we-like-client.vercel.app", 
+  credentials: true
+  }
+});
 
 // middleware
 // app.use( 
