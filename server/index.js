@@ -102,7 +102,7 @@ io.on("connection", (socket) => {
       post.comments.push({ owner: memberId, postId: newComment._id });
       await post.save();
     } catch (e) {
-      return e.message
+      io.emit("commentingError", e.message)
     }
   });
   socket.on("writePostInPosts", async (data) => {
@@ -133,7 +133,7 @@ io.on("connection", (socket) => {
       save_post.posts.push({ owner: userId, postId: post._id });
       await save_post.save();
     } catch (e) {
-      return e.message
+      io.emit("postingError", e.message);
     }
   });
 
