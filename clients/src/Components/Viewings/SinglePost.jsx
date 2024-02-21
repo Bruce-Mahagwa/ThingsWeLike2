@@ -125,9 +125,14 @@ const SinglePost = ({ getPost, getComments }) => {
       dispatch(getCommentsFromSocketIo(comment))
       closeCommentPortal(); // automatically close the text area for making comments when we receive the comment on the frontend
     }
+    function handleCommentError(e) {
+      console.log(e, "error from socket io");
+    }
     socket.on("comment", getCommentsFromSocket)
+    socket.on("commentingError", handleCommentError)
     return () => {
       socket.off("comment", getCommentsFromSocket) // clears the socket io event listener when the component unmounts
+      socket.off("commentingError", handleCommentError)
     }
   }, [comments])
 
