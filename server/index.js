@@ -14,23 +14,6 @@ const CommentsModel = require("./models/CommentModel");
 // variables
 const app = express();
 const PORT = 4000;
-const server = require("http").createServer(app);
-const io = require("socket.io")(server, { 
-  cors: { 
-  origin: "https://things-we-like-client.vercel.app", 
-  credentials: true
-  }
-});
-
-// middleware
-// app.use( 
-//   cors({
-//     credentials: true,
-//     // origin: "https://indiefolkchannel.brucejacob.repl.co",
-//     origin: "https://web.postman.co",
-//   }),
-// );
-
 const whitelist = [
   "https://things-we-like-client.vercel.app",
   "https://things-we-like-client.vercel.app/"
@@ -50,33 +33,25 @@ const corsoptions = {
   credentials: true,
 };
 
-// const io = new Server(httpServer, {
-//   allowRequest: (req, callback) => {
-//     const noOriginHeader = req.headers.origin === undefined;
-//     callback(null, noOriginHeader); // only allow requests without 'origin' header
-//   },
-// });
-
 app.use(cors(corsoptions));
-// app.use(
-//   cors({
-//     origin:
-//       "https://beab0571-1629-4e09-b29e-735d042e23b3-00-232g9pucjyc96.spock.replit.dev",
-//     credentials: true,
-//   }),
-// );
 app.use(express.json());
 app.use(cookieParser());
 app.use(apiRoutes);
+// socket io
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, { 
+  cors: { 
+    origin: ["https://things-we-like-client.vercel.app", "https://things-we-like-client.vercel.app/", "http://things-we-like-client.vercel.app", "http://things-we-like-client.vercel.app/"], 
+    credentials: true
+  }
+});
 
 // connect
 connectDB();
-// listening
-// app.listen(PORT);
-
+// listen
 server.listen(PORT);
 
-// Socket.IO
+// Socket.IO connections
 io.on("connection", (socket) => {
   console.log(`Socket ${socket.id} connected`);
   const count = io.engine.clientsCount;
