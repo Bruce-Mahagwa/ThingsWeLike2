@@ -49,7 +49,7 @@ const io = require("socket.io")(server, {
 // connect
 connectDB();
 // listen
-server.listen(PORT);
+server.listen(process.env.PORT);
 
 // Socket.IO connections
 io.on("connection", (socket) => {
