@@ -97,19 +97,19 @@ io.on("connection", (socket) => {
         userName: userName,
       });
       io.emit("comment", newComment);
-      console.log("new comment", newComment);
+      
       const post = await PostModel.findById(postId);
       post.comments.push({ owner: memberId, postId: newComment._id });
       await post.save();
     } catch (e) {
-      console.log(e);
+      return e.message
     }
   });
   socket.on("writePostInPosts", async (data) => {
-    await connectDB();
     const count = io.engine.clientsCount;
     console.log("number of users is", count);
     try {
+      await connectDB();
       const spaceId = data.spaceId;
       const userId = data.userId;
       const userName = data.userName;
@@ -133,8 +133,7 @@ io.on("connection", (socket) => {
       save_post.posts.push({ owner: userId, postId: post._id });
       await save_post.save();
     } catch (e) {
-      console.log(e);
-      return res.status(500).json({ error: "Cannot create post" });
+      return e.message
     }
   });
 
