@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 
 // });
 export const socket = io("https://thingswelikeapi.onrender.com", {
+  // we connect to this url for our websocket 
   transports: [ "websocket" ],
   withCredentials: true
 });
