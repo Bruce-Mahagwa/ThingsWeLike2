@@ -108,10 +108,15 @@ const Posts = ({ getPosts }) => {
       closePostPortal()
       // we add the post gotten from socket io to the posts array in state
     }
+    function handlePostError(e) {
+      console.log(e, "error from socket io");
+    }
     socket.on("postInPosts", getPostsFromSocket)
+    socket.on("postingError", handlePostError)
     return () => {
       // clears the socket io event listener when the component unmounts
       socket.off("postInPosts", getPostsFromSocket)
+      socket.off("postingError", handlePostError)
     }
   }, [posts])
 
