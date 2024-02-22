@@ -171,7 +171,7 @@ const createComment = async (req, res) => {
     });
 
     // pusher
-    pusher.trigger("thingswelike", "commentsInComments", newComment).catch((e) => {
+    await pusher.trigger("thingswelike", "commentsInComments", newComment).catch((e) => {
         console.log(e, "Pusher has an error");
       });
     // pusher
@@ -211,7 +211,7 @@ const createPost = async (req, res) => {
     });
 
     // pusher code
-    pusher.trigger("thingswelike", "postsInPosts", post).then((res) => {
+    await pusher.trigger("thingswelike", "postsInPosts", post).then((res) => {
       console.log(res, "res from pusher")
     }).catch((e) => {
         console.log(e.message, "Pusher has an error");
