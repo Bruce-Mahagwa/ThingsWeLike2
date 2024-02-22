@@ -65,9 +65,7 @@ const EditSpace = ({ editSpace, getUserSpace }) => {
     })
   }
 
-  if (loading) {
-    return <Loading />
-  }
+  
   if (error || localError) {
     return <ErrorMessage errorTitle={"Creating Space Error"} errorMessage={error || "Could not edit space at the moment. Please try again later"} />
   }
