@@ -7,6 +7,7 @@ import { clearComments } from "../../ReduxStore/Slices/CommentSlice";
 import { getPostsFromSocketIo, clearPosts } from "../../ReduxStore/Slices/PostSlice"
 import CreatePost from "./CreatePost";
 import { socket } from "../../Socketio/socket"
+import { pusher } from "../../Pusher/pusher"
 // depende 
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react"
@@ -101,22 +102,32 @@ const Posts = ({ getPosts }) => {
   }
 
   useEffect(() => {
-    function getPostsFromSocket(post) {
-      setLoadDuringPosting(false) // removes the loading state when a post is received from socket io      
-      dispatch(getPostsFromSocketIo(post))
+    // function getPostsFromSocket(post) {
+    //   setLoadDuringPosting(false) // removes the loading state when a post is received from socket io      
+    //   dispatch(getPostsFromSocketIo(post))
       
-      closePostPortal()
-      // we add the post gotten from socket io to the posts array in state
-    }
-    function handlePostError(e) {
-      console.log(e, "error from socket io");
-    }
-    socket.on("postInPosts", getPostsFromSocket)
-    socket.on("postingError", handlePostError)
+    //   closePostPortal()
+    //   // we add the post gotten from socket io to the posts array in state
+    // }
+    // function handlePostError(e) {
+    //   console.log(e, "error from socket io");
+    // }
+    // socket.on("postInPosts", getPostsFromSocket)
+    // socket.on("postingError", handlePostError)
+    const channel = pusher.subscribe("thingswelike")
+    channel.bind("postsInPosts", ((posts) => {
+      console.log("postsfrompusher", posts)
+      dispatch(getPostsFromSocketIo(posts))
+      setLoadDuringPosting(false)
+    }))
+    channel.bind("pusher:subscription_error", (error) => {
+      console.log(error, "error from pusher")
+    });
     return () => {
       // clears the socket io event listener when the component unmounts
-      socket.off("postInPosts", getPostsFromSocket)
-      socket.off("postingError", handlePostError)
+      // socket.off("postInPosts", getPostsFromSocket)
+      // socket.off("postingError", handlePostError)
+      channel.unbind("postsInPosts")
     }
   }, [posts])
 
