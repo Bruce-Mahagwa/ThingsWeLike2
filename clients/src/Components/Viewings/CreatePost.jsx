@@ -1,9 +1,10 @@
 // files
 import "./CreatePost.css"
 import ErrorMessage from "../Error/ErrorMessage";
+import { createPost } from "../../ReduxStore/Actions/PostActions";
 import { socket } from "../../Socketio/socket"
 // dependencies  
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 
 const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, setLoadDuringPosting }) => {
@@ -11,7 +12,7 @@ const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, s
   const [postData, setPostData] = useState({
     description: ""
   })
-
+  const dispatch = useDispatch();
   const { error } = useSelector(state => state.posts)
   const { user } = useSelector(state => state.users);
 
@@ -22,16 +23,14 @@ const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, s
     try {
       // socket io
       setLoadDuringPosting(true);
-      socket.emit("writePostInPosts", { description: postData.description, owner: [{ memberId: user._id, userName: user.userName }], postedAt: new Date(), spaceId: spaceId, userId: user._id, userName: user.userName });
+      // socket.emit("writePostInPosts", { description: postData.description, owner: [{ memberId: user._id, userName: user.userName }], postedAt: new Date(), spaceId: spaceId, userId: user._id, userName: user.userName });
       // socket io
-      // dispatch(createPost({ spaceId, description: postData })).unwrap().then((res) => {
-      //   setLoading(false)
-      //   closePostPortal();
-      // }).catch((e) => {
-      //   console.log(e)
-      //   setLocalError(true)
-      //   setLoading(false)
-      // })
+      dispatch(createPost({ spaceId, description: postData })).unwrap().then((res) => {
+      }).catch((e) => {
+        console.log(e)
+        setLocalError(true)
+        setLoadDuringPosting(false);
+      })
     }
     catch (e) {
       setLocalError(true)
