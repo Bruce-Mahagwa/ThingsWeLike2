@@ -56,9 +56,6 @@ const CreateSpace = ({ createSpace }) => {
     })
   }
 
-  if (loading) {
-    return <Loading />
-  }
   if (error) {
     return <ErrorMessage errorTitle={"Creating Space Error"} errorMessage={error} />
   }
