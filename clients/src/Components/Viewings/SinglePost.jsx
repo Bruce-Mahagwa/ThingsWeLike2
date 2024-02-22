@@ -9,6 +9,7 @@ import "./SinglePost.css"
 import TimeAgo from "./TimeAgo";
 import { clearPosts } from "../../ReduxStore/Slices/PostSlice";
 import { clearComments } from "../../ReduxStore/Slices/CommentSlice";
+import { pusher } from "../../Pusher/pusher";
 // dependencies 
 import { useSelector, useDispatch } from "react-redux"
 import { useSearchParams, useParams, Link } from "react-router-dom";
@@ -118,21 +119,32 @@ const SinglePost = ({ getPost, getComments }) => {
   }
 
   useEffect(() => {
-    function getCommentsFromSocket(comment) {
-      setLoadDuringPostComments(false) // we disable the fetching of a comment that has just been posted once we receive it from socket io
-      // here we check our values from socket io and add it to the comments state array
-      console.log(comments.data)
-      dispatch(getCommentsFromSocketIo(comment))
-      closeCommentPortal(); // automatically close the text area for making comments when we receive the comment on the frontend
-    }
-    function handleCommentError(e) {
-      console.log(e, "error from socket io");
-    }
-    socket.on("comment", getCommentsFromSocket)
-    socket.on("commentingError", handleCommentError)
+    // function getCommentsFromSocket(comment) {
+    //   setLoadDuringPostComments(false) // we disable the fetching of a comment that has just been posted once we receive it from socket io
+    //   // here we check our values from socket io and add it to the comments state array
+    //   console.log(comments.data)
+    //   dispatch(getCommentsFromSocketIo(comment))
+    //   closeCommentPortal(); // automatically close the text area for making comments when we receive the comment on the frontend
+    // }
+    // function handleCommentError(e) {
+    //   console.log(e, "error from socket io");
+    // }
+    // socket.on("comment", getCommentsFromSocket)
+    // socket.on("commentingError", handleCommentError)
+    const channel = pusher.subscribe("thingswelike")
+    channel.bind("commentsInComments", ((comments) => {
+      console.log("commentsInComments", comments)
+      dispatch(getCommentsFromSocketIo(comments))
+      setLoadDuringPostComments(false);
+    }))
+    channel.bind("pusher:subscription_error", (error) => {
+      console.log(error, "error from pusher")
+      setLoadDuringPostComments(false);
+    });
     return () => {
-      socket.off("comment", getCommentsFromSocket) // clears the socket io event listener when the component unmounts
-      socket.off("commentingError", handleCommentError)
+      // socket.off("comment", getCommentsFromSocket) // clears the socket io event listener when the component unmounts
+      // socket.off("commentingError", handleCommentError)
+      channel.unbind("commentsInComments")
     }
   }, [comments])
 
