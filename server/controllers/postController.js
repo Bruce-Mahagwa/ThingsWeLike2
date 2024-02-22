@@ -14,7 +14,7 @@ const pusher = new Pusher({
   cluster: process.env["CLUSTER"],
   useTLS: true,
 });
-
+console.log(pusher)
 const getPosts = async (req, res) => {
   try {
     await connectDB()
@@ -171,11 +171,7 @@ const createComment = async (req, res) => {
     });
 
     // pusher
-    pusher
-      .trigger("thingswelike", "commentsInComments", newComment, () => {
-        console.log("pusher has just created a comment");
-      })
-      .catch((e) => {
+    pusher.trigger("thingswelike", "commentsInComments", newComment).catch((e) => {
         console.log(e, "Pusher has an error");
       });
     // pusher
@@ -215,13 +211,11 @@ const createPost = async (req, res) => {
     });
 
     // pusher code
-    pusher
-      .trigger("thingswelike", "postsInPosts", post, () => {
-        console.log("pusher has just created a post");
-      })
-      .catch((e) => {
-        console.log(e, "Pusher has an error");
-      });
+    pusher.trigger("thingswelike", "postsInPosts", post).then((res) => {
+      console.log(res, "res from pusher")
+    }).catch((e) => {
+        console.log(e.message, "Pusher has an error");
+    });
     // pusher code
     
     const save_post = await SpaceModel.findById(spaceId);
