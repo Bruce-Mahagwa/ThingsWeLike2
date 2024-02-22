@@ -4,6 +4,17 @@ const SpaceModel = require("../models/SpaceModel");
 const CommentsModel = require("../models/CommentModel");
 const connectDB = require("../config/db");
 
+// depend
+const Pusher = require("pusher");
+// variables
+const pusher = new Pusher({
+  appId: process.env["APP_ID"],
+  key: process.env["KEY"],
+  secret: process.env["SECRET"],
+  cluster: process.env["CLUSTER"],
+  useTLS: true,
+});
+
 const getPosts = async (req, res) => {
   try {
     await connectDB()
@@ -158,6 +169,16 @@ const createComment = async (req, res) => {
       owner: memberId,
       userName: userName,
     });
+
+    // pusher
+    pusher
+      .trigger("thingswelike", "commentsInComments", newComment, () => {
+        console.log("pusher has just created a comment");
+      })
+      .catch((e) => {
+        console.log(e, "Pusher has an error");
+      });
+    // pusher
     const post = await PostModel.findById(postId);
     post.comments.push({ owner: memberId, postId: newComment._id });
     await post.save();
@@ -192,6 +213,17 @@ const createPost = async (req, res) => {
       postedAt,
       owner: { memberId: userId, userName },
     });
+
+    // pusher code
+    pusher
+      .trigger("thingswelike", "postsInPosts", post, () => {
+        console.log("pusher has just created a post");
+      })
+      .catch((e) => {
+        console.log(e, "Pusher has an error");
+      });
+    // pusher code
+    
     const save_post = await SpaceModel.findById(spaceId);
     save_post.posts.push({ owner: userId, postId: post._id });
     await save_post.save();
