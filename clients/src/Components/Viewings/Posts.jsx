@@ -130,7 +130,7 @@ const Posts = ({ getPosts }) => {
       channel.unbind("postsInPosts")
     }
   }, [posts])
-
+  console.log("new posts", posts, pusher)
   if (error || localError) {
     return <ErrorMessage errorTitle={"Fetching Data Error"} errorMessage={error || "Could Not Load Resource. Please try again Later"} />
   }
