@@ -2,6 +2,7 @@
 import "./CreatePost.css"
 import ErrorMessage from "../Error/ErrorMessage"
 import { socket } from "../../Socketio/socket"
+import { createComment } from "../../ReduxStore/Actions/CommentActions"
 // dependencies
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
@@ -13,7 +14,7 @@ const ReplyPost = ({ closeCommentPortal, spaceId, postId, commentPortal, setLoad
   const [commentData, setCommentData] = useState({
     description: ""
   })
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const submitComment = () => {
     if (commentData.description.length === 0) {
       return null;
@@ -21,15 +22,13 @@ const ReplyPost = ({ closeCommentPortal, spaceId, postId, commentPortal, setLoad
     try {
       setLoadDuringPostComments(true);
       // socket io
-      socket.emit("writeComment", { comment: commentData.description, owner: user._id, userName: user.userName, postedAt: new Date(), postId: postId });
+      // socket.emit("writeComment", { comment: commentData.description, owner: user._id, userName: user.userName, postedAt: new Date(), postId: postId });
       // socket io
-      // dispatch(createComment({ postId, comment: commentData })).unwrap().then((res) => {
-      //   setLoading(false)
-      //   closeCommentPortal();
-      // }).catch((e) => {
-      //   setLocalError(true)
-      //   setLoading(false)
-      // })
+      dispatch(createComment({ postId, comment: commentData })).unwrap().then((res) => {
+      }).catch((e) => {
+        setLocalError(true)
+        setLoadDuringPostComments(false);
+      })
     }
     catch (e) {
       setLocalError(true)
