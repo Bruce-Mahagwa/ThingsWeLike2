@@ -50,10 +50,15 @@
   .sliderintro-item {
     margin-bottom: 0;
   }
+  .sliderintro-image {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 @media screen and (min-width: 900px) {
   .sliderintro-item {
-    width: 80%;
+    /* width: 90%; */
+    /* change here */
     margin-left: auto;
     margin-right: auto;
   }
@@ -61,17 +66,26 @@
     width: 90%;
   }
   .sliderintro-container div {
-    max-width: 70%;
+    max-width: 80%;
   }
 }
 @media screen and (min-width: 1200px) {
   .sliderintro-item {
-    width: 70%;
+    width: 80%; 
+    /*change here  */
+  }
+  .sliderintro-image {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .sliderintro-item {
+    width: 70%; 
   }
   .sliderintro-image {
     width: 80%;
   }
   .sliderintro-container div {
-    max-width: 60%;
+    max-width: 100%; 
   }
 }
