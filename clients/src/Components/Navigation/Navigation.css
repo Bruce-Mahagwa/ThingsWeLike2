@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 /*typography*/
-.official-logo {
+.official-logo { 
   width: 40px;
   cursor: pointer;
 }
@@ -58,7 +58,7 @@ a {
   display: none;
   position: absolute;
   background: white;
-  color: black;
+  color: black; 
   width: 100%;
   padding: 1em 0 1em 0.2em;
   transition-property: display;
@@ -110,19 +110,33 @@ a {
   min-height: 130px;
 }
 /*header banner*/
-/*show classes*/
 
+/*show classes*/
 .toggle-main-nav {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 200px;
+}
+.toggle-main-nav * {
+  margin-bottom: 0.3em;
 }
 .toggle-nav-items-container {
   display: flex;
   flex-direction: column;
 }
+
 /*show classes*/
 
 @media screen and (min-width: 576px) {
   /*topography*/
+  .toggle-main-nav {
+    display: block;
+    flex-direction: row;   
+  }
+  .toggle-main-nav * {
+    margin-bottom: 0;
+  }
   .official-logo {
     width: 50px;
     cursor: pointer;
