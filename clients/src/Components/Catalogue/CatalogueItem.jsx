@@ -1,6 +1,5 @@
 // files
-import freelogo from "../../images/free-logo.jpg";
-import "./Catalogue.css";
+import "./Catalogue.css";  
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const CatalogueItem = ({ name, description, image, members, id, url }) => {

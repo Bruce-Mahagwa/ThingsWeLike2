@@ -54,7 +54,7 @@ const Register = ({ registerUser }) => {
   }
   const { error } = useSelector(state => state.users)
   return (
-    <main id="login">
+    <main id="login"> 
       <div className="login-register-title">
         <h1>Register</h1>
         {(error || registerState.error) && <h3>{error || registerState.error}</h3>}

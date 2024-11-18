@@ -1,6 +1,9 @@
 :root {
   --blue1: rgba(3, 138, 255);
 }
+#login {
+  margin-bottom: 2em;
+}
 .login-register-title {
   margin-top: 1em;
   text-align: center;
@@ -53,7 +56,7 @@
 }
 @media screen and (min-width: 500px) {
   .login-container {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     justify-content: flex-start;
   }
   .credentials-input {

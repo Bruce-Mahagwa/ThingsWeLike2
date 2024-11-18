@@ -52,7 +52,7 @@ const Login = ({ loginUser }) => {
   }
 
   return (
-    <main id="login">
+    <main id="login"> 
       <div className="login-register-title">
         <h1>Login</h1>
         {(error || loginState.error) && <h3 style={{ color: "red" }}>{error || loginState.error}</h3>}

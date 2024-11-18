@@ -5,7 +5,7 @@ import Post from "./Post";
 import Loading from "../Loading/Loading"
 import ErrorMessage from "../Error/ErrorMessage"
 // depends 
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react"
 
