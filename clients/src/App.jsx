@@ -37,44 +37,49 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollTop />
-      <HeaderPage />
-      {/*first route not logged in  */}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/search/:spaceId" element={<SpacePage />} />
-        <Route path="/spaces" element={<SpacesPage />} />
-        {/*above - will have a page of spaces first  */}
-        <Route path="/spaces/:spaceId" element={<SpacePage />} />
-        {/*  will have a single  space in the category*/}
-        
-        {/*end of first route not logged in  */}
+      <ScrollTop /> 
+      <main class = "container">
+        <HeaderPage />
+        {/*first route not logged in  */}
+        <div style = {{flex: 1}}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/search/:spaceId" element={<SpacePage />} />
+            <Route path="/spaces" element={<SpacesPage />} />
+            {/*above - will have a page of spaces first  */}
+            <Route path="/spaces/:spaceId" element={<SpacePage />} />
+            {/*  will have a single  space in the category*/}
+            
+            {/*end of first route not logged in  */}
 
-        {/*second route user is not admin  */}
-        <Route element={<Layout />} admin={false}>
-          <Route path="/home" element={<HomePageLoggedIn />} />
-          <Route path="/user" element={<UserProfilePage />} />
-          <Route path="/user/spaces" element={<UserSpacesPage />} />
-          <Route path="/user/spaces/:spaceId" element={<UserSpacePage />} />
-          <Route path="/user/spaces/:spaceId/posts" element={<UserPostsPage />} />
-          <Route path="/user/spaces/:spaceId/posts/:postId" element={<UserPostPage />} />
-          
-          <Route path="/user/createspace" element={<UserCreateSpacePage />} />
-          <Route path="/user/editspace/:spaceId" element={<UserEditSpacePage />} />
-        </Route>
-        {/*end of second route user is not admin  */}
-        {/*third route user is admin  */}
-        <Route element={<Layout />} admin={true}>
-          <Route path="/admin/users" element={<AdminUsersPage />} />
-          <Route path="/admin/spaces" element={<AdminSpacesPage />} />
-        </Route>
-        {/*end of third route user is admin  */}
-        <Route path="*" element={<ErrorMessage errorMessage={"Route Not Found"} errorTitle="No Routes Match This Location. Please go back to the HomePage. Thank You. " />} />
-      </Routes>
-      <FooterPage />
+            {/*second route user is not admin  */}
+            <Route element={<Layout />} admin={false}>
+              <Route path="/home" element={<HomePageLoggedIn />} />
+              <Route path="/user" element={<UserProfilePage />} />
+              <Route path="/user/spaces" element={<UserSpacesPage />} />
+              <Route path="/user/spaces/:spaceId" element={<UserSpacePage />} />
+              <Route path="/user/spaces/:spaceId/posts" element={<UserPostsPage />} />
+              <Route path="/user/spaces/:spaceId/posts/:postId" element={<UserPostPage />} />
+              
+              <Route path="/user/createspace" element={<UserCreateSpacePage />} />
+              <Route path="/user/editspace/:spaceId" element={<UserEditSpacePage />} />
+            </Route>
+            {/*end of second route user is not admin  */}
+            {/*third route user is admin  */}
+            <Route element={<Layout />} admin={true}>
+              <Route path="/admin/users" element={<AdminUsersPage />} />
+              <Route path="/admin/spaces" element={<AdminSpacesPage />} />
+            </Route>
+            {/*end of third route user is admin  */}
+            <Route path="*" element={<ErrorMessage errorMessage={"Route Not Found"} errorTitle="No Routes Match This Location. Please go back to the HomePage. Thank You. " />} />
+          </Routes>
+        </div>
+        
+        <FooterPage />
+      </main>
     </BrowserRouter>
   )
 }

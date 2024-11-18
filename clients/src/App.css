@@ -60,11 +60,13 @@
   font-family: var(--font-body);
   font-size: var(--body-font-size);
 }
-body {
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+
 }
+
 h6, h5, h4, h3, h2, h1 {
   font-family: var(--font-header);
 }

@@ -1,4 +1,4 @@
-
+  
 /*begin of universal footer*/
 * {
   margin: 0;
@@ -8,7 +8,7 @@
 #universal_footer {
   color: white;
   background: rgba(0, 0, 0, 1);	
-  margin-top: auto;
+  /* margin-top: auto; */
   width: 100%;
 }
 #universal_footer section {
