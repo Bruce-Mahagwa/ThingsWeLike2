@@ -203,7 +203,7 @@ const joinSpace = async (req, res) => {
 
 const checkIfUserIsInSpace = async (req, res) => {
   try {
-    await connectDB()
+    await connectDB()  
     const { spaceId } = req.params;
 
     const userId = req.user._id;

@@ -16,7 +16,9 @@ const app = express();
 const PORT = 4000;
 const whitelist = [
   "https://things-we-like-client.vercel.app",
-  "https://things-we-like-client.vercel.app/"
+  "https://things-we-like-client.vercel.app/",
+  "http://localhost:3000/",
+  "http://localhost:3000"
 ];
 const corsoptions = {
   origin: function (origin, callback) {
