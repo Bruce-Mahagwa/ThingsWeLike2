@@ -3,7 +3,6 @@ import "./Post.css"
 import Loading from "../Loading/Loading"
 import ErrorMessage from "../Error/ErrorMessage"
 import ReplyPost from "./ReplyPost"
-import { socket } from "../../Socketio/socket"
 import Comment from "./Comment"
 import "./SinglePost.css"
 import TimeAgo from "./TimeAgo";

@@ -1,7 +1,6 @@
 // files
 import "./CreatePost.css"
 import ErrorMessage from "../Error/ErrorMessage"
-import { socket } from "../../Socketio/socket"
 import { createComment } from "../../ReduxStore/Actions/CommentActions"
 // dependencies
 import { useSelector, useDispatch } from "react-redux"

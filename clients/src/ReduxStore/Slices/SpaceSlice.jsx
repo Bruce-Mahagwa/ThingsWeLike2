@@ -15,7 +15,11 @@ const initialState = {
 const SpaceSlice = createSlice({
   name: "spaces",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSpaces(state) {
+      state.spaces.data = []
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getSpaces.fulfilled, (state, action) => {
       state.spaces.data = action.payload.data
@@ -57,3 +61,4 @@ const SpaceSlice = createSlice({
   }
 })
 export default SpaceSlice.reducer
+export const {clearSpaces} = SpaceSlice.actions;

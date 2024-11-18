@@ -6,7 +6,6 @@ import ErrorMessage from "../Error/ErrorMessage";
 import { clearComments } from "../../ReduxStore/Slices/CommentSlice";
 import { getPostsFromSocketIo, clearPosts } from "../../ReduxStore/Slices/PostSlice"
 import CreatePost from "./CreatePost";
-import { socket } from "../../Socketio/socket"
 import { pusher } from "../../Pusher/pusher"
 // depende 
 import { useSelector, useDispatch } from "react-redux";

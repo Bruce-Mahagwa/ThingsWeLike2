@@ -3,6 +3,7 @@ import CatalogueItem from "../Catalogue/CatalogueItem";
 import "../Catalogue/Catalogue.css";
 import Loading from "../Loading/Loading";
 import ErrorMessage from "../Error/ErrorMessage";
+import { clearSpaces } from "../../ReduxStore/Slices/SpaceSlice";
 
 // dependencies 
 import { useSearchParams } from 'react-router-dom';
@@ -19,6 +20,7 @@ const Spaces = ({ getSpaces }) => {
   let pageNum = page.get("pageNum");
 
   useEffect(() => {
+    dispatch(clearSpaces()) // removes the previous space from the UI
     if (!pageNum) {
       // if the page loads we et the pageNum to 1 automatically
       setPage({ pageNum: 1 })
@@ -42,30 +44,25 @@ const Spaces = ({ getSpaces }) => {
     // here we set both the pageNum variable for search Params and the page Number on the Pagination component
   }
 
-  if (loading) {
-    return <Loading />
-  }
-
   if (error || localError) {
     return <ErrorMessage errorTitle={"Fetching Data Error"} errorMessage={error || "Could Not Load Resource. Please try again Later or refresh the page."} />
   }
   
-  if (spaces.data.length > 0) {
-    return (
-      <>
-        <h2 className="title">Spaces</h2>
-        <div className="catalogue-list-container">
-          {spaces.data.map((space) => { 
-            return (
-              <CatalogueItem key={space.spaceName} image={space.avatar} description={space.description.substr(0, 100) + "..."} name={space.spaceName} members={space.members.length} id={space._id} url={"spaces"} />
-            )
-          })}
-        </div>
-        <div style={{ width: "100%", marginBottom: "1em", marginTop: "1em" }}>
-          <Pagination onChange={handleChange} count={Number(spaces.total) / Number(spaces.pageSize)} page={Number(muiPage)} size="large" />
-        </div>
-      </>
-    )
-  }
+return (
+    <>
+      <h2 className="title">Spaces</h2>
+      {loading && <Loading />}
+      <div className="catalogue-list-container">
+        {spaces.data.map((space) => { 
+          return (
+            <CatalogueItem key={space.spaceName} image={space.avatar} description={space.description.substr(0, 100) + "..."} name={space.spaceName} members={space.members.length} id={space._id} url={"spaces"} />
+          )
+        })}
+      </div>
+      <div style={{ width: "100%", marginBottom: "1em", marginTop: "1em" }}>
+        <Pagination onChange={handleChange} count={Number(spaces.total) / Number(spaces.pageSize)} page={Number(muiPage)} size="large" />
+      </div>
+    </>
+  )
 }
 export default Spaces;

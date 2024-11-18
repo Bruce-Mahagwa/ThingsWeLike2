@@ -2,7 +2,6 @@
 import "./CreatePost.css"
 import ErrorMessage from "../Error/ErrorMessage";
 import { createPost } from "../../ReduxStore/Actions/PostActions";
-import { socket } from "../../Socketio/socket"
 // dependencies  
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
