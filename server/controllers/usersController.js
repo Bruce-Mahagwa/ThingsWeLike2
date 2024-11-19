@@ -24,7 +24,6 @@ const registerUser = async (req, res) => {
     const userName = req.body?.userName;
     const email = req.body?.email;
     const password = req.body?.password;
-    console.log(userName, email, password);
     if (!(userName && email && password)) {
       return res.status(400).json({ error: "Please provide all inputs" });
     }
@@ -34,7 +33,7 @@ const registerUser = async (req, res) => {
     }
     const checkSameUsername = await UserModel.findOne({ userName: userName });
     if (checkSameUsername) {
-      return res.status(400).json({
+      return res.status(503).json({
         error: "A user with that username exists. Please pick another username",
       });
     }
