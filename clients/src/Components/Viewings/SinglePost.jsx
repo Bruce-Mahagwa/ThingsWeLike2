@@ -82,21 +82,17 @@ const SinglePost = ({ getPost, getComments }) => {
     e.preventDefault()
     let val = Number(pageNum) + 1;
     const requiredComments = pageNum * comments.pageSize; // calculats number of comments that should be visible incase user comments using socket io. we need to recalculate the pageNum
-    console.log(requiredComments, "requiredcommentss", comments.data.length)
     setManageSocketUpdates(false);
     if (comments.data.length > requiredComments) {
       // checks for a refresh and fetches pcomments up to pageNum
       // if the pageNum is greater than 1 and the posts array is empty then we know that the page has been refreshed
       // if we have more posts than those that are required it means that socket io has been used to fetch the posts and we need to readjust the pageNum accordingly.
-      console.log(comments.data.length, "comments.data.length", comments.pageSize)
       window.scrollTo(0, 0) // scrolls to the top of the page
       const extraComments = comments.data.length - requiredComments; // calculates the number of posts that are left to be loaded
-      console.log("extracomments", extraComments)
       let commentsToBeAdded = 0;
       if (extraComments > 0) {
         commentsToBeAdded = extraComments;
         const pagesToBeAdded = Math.ceil(commentsToBeAdded / comments.pageSize);
-        console.log("pagesToBeAdded", pagesToBeAdded)
         setManageSocketUpdates(true) // ensures that we have a flag showing that we need to fetch data from socket io
         let val = pagesToBeAdded + Number(pageNum) + 1 // the one caters for the comments in the next page
         setPage({ pageNum: val });
@@ -105,7 +101,6 @@ const SinglePost = ({ getPost, getComments }) => {
     else {
       setPage({ pageNum: val });
     }
-    // scrollToView.current?.lastElementChild?.scrollIntoView({ behavior: "smooth" })
   }
   const openCommentPortal = () => {
     // function to open commentPortal
@@ -118,21 +113,8 @@ const SinglePost = ({ getPost, getComments }) => {
   }
 
   useEffect(() => {
-    // function getCommentsFromSocket(comment) {
-    //   setLoadDuringPostComments(false) // we disable the fetching of a comment that has just been posted once we receive it from socket io
-    //   // here we check our values from socket io and add it to the comments state array
-    //   console.log(comments.data)
-    //   dispatch(getCommentsFromSocketIo(comment))
-    //   closeCommentPortal(); // automatically close the text area for making comments when we receive the comment on the frontend
-    // }
-    // function handleCommentError(e) {
-    //   console.log(e, "error from socket io");
-    // }
-    // socket.on("comment", getCommentsFromSocket)
-    // socket.on("commentingError", handleCommentError)
     const channel = pusher.subscribe("thingswelike")
     channel.bind("commentsInComments", ((comments) => {
-      console.log("commentsInComments", comments)
       dispatch(getCommentsFromSocketIo(comments))
       setLoadDuringPostComments(false);
     }))
@@ -141,8 +123,6 @@ const SinglePost = ({ getPost, getComments }) => {
       setLoadDuringPostComments(false);
     });
     return () => {
-      // socket.off("comment", getCommentsFromSocket) // clears the socket io event listener when the component unmounts
-      // socket.off("commentingError", handleCommentError)
       channel.unbind("commentsInComments")
     }
   }, [comments])

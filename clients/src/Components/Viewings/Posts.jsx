@@ -100,22 +100,9 @@ const Posts = ({ getPosts }) => {
     setPostPortal(false)
   }
 
-  useEffect(() => {
-    // function getPostsFromSocket(post) {
-    //   setLoadDuringPosting(false) // removes the loading state when a post is received from socket io      
-    //   dispatch(getPostsFromSocketIo(post))
-      
-    //   closePostPortal()
-    //   // we add the post gotten from socket io to the posts array in state
-    // }
-    // function handlePostError(e) {
-    //   console.log(e, "error from socket io");
-    // }
-    // socket.on("postInPosts", getPostsFromSocket)
-    // socket.on("postingError", handlePostError)
+  useEffect(() => {    
     const channel = pusher.subscribe("thingswelike")
     channel.bind("postsInPosts", ((posts) => {
-      console.log("postsfrompusher", posts)
       dispatch(getPostsFromSocketIo(posts))
       setLoadDuringPosting(false)
     }))
@@ -123,13 +110,9 @@ const Posts = ({ getPosts }) => {
       console.log(error, "error from pusher")
     });
     return () => {
-      // clears the socket io event listener when the component unmounts
-      // socket.off("postInPosts", getPostsFromSocket)
-      // socket.off("postingError", handlePostError)
       channel.unbind("postsInPosts")
     }
   }, [posts])
-  console.log("new posts", posts, pusher)
   if (error || localError) {
     return <ErrorMessage errorTitle={"Fetching Data Error"} errorMessage={error || "Could Not Load Resource. Please try again Later"} />
   }
@@ -147,10 +130,8 @@ const Posts = ({ getPosts }) => {
         })}
 
       </div>
-      {/* <ScrollRestoration> */}
-      {posts.pageNum * posts.pageSize < posts.total && <button onClick={handleChange} className="load-btn">Load More</button>}
-      {/* </ScrollRestoration> */}
       {loading && <Loading />}
+      {posts.pageNum * posts.pageSize < posts.total && <button onClick={handleChange} className="load-btn" style = {{marginLeft: "1em"}}>Load More</button>}
       {postPortal && (<CreatePost closePostPortal={closePostPortal} spaceId={spaceId} postPortal={postPortal} setLoadDuringPosting={setLoadDuringPosting} loadDuringPosting={loadDuringPosting} />)}
     </main>
   )

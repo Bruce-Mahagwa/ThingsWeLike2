@@ -20,10 +20,7 @@ const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, s
       return null;
     }
     try {
-      // socket io
       setLoadDuringPosting(true);
-      // socket.emit("writePostInPosts", { description: postData.description, owner: [{ memberId: user._id, userName: user.userName }], postedAt: new Date(), spaceId: spaceId, userId: user._id, userName: user.userName });
-      // socket io
       dispatch(createPost({ spaceId, description: postData })).unwrap().then((res) => {
       }).catch((e) => {
         console.log(e)
@@ -64,8 +61,8 @@ const CreatePost = ({ closePostPortal, spaceId, postPortal, loadDuringPosting, s
 
           <div>
             {!loadDuringPosting && <button className="post-review" onClick={submitPost}>Post</button>}
+            {loadDuringPosting && <button className="post-review" disabled = {true}>Loading</button>}
             <button className="post-review" style={{ background: "red", marginLeft: "1em" }} onClick={closePostPortal}>Cancel</button>
-            {loadDuringPosting && "Loading..."}
           </div>
 
         </div>

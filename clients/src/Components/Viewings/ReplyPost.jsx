@@ -19,10 +19,7 @@ const ReplyPost = ({ closeCommentPortal, spaceId, postId, commentPortal, setLoad
       return null;
     }
     try {
-      setLoadDuringPostComments(true);
-      // socket io
-      // socket.emit("writeComment", { comment: commentData.description, owner: user._id, userName: user.userName, postedAt: new Date(), postId: postId });
-      // socket io
+      setLoadDuringPostComments(true);      
       dispatch(createComment({ postId, comment: commentData })).unwrap().then((res) => {
       }).catch((e) => {
         setLocalError(true)
@@ -59,8 +56,8 @@ const ReplyPost = ({ closeCommentPortal, spaceId, postId, commentPortal, setLoad
 
           <div>
             {!loadDuringPostComments && <button className="post-review" onClick={submitComment}>Post</button>}
-            <button className="post-review" style={{ background: "red", marginLeft: "1em" }} onClick={closeCommentPortal}>Cancel</button>"
-            {loadDuringPostComments && "Loading..."}
+            {loadDuringPostComments && <button className="post-review" disabled = {true}>Loading...</button>}
+            <button className="post-review" style={{ background: "red", marginLeft: "1em" }} onClick={closeCommentPortal}>Cancel</button>            
           </div>
 
         </div>

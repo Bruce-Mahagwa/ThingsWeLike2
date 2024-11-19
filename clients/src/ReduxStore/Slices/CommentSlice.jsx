@@ -18,7 +18,6 @@ const CommentsSlice = createSlice({
     },
     getCommentsFromSocketIo(state, item) {
       state.comments.data = [item.payload, ...state.comments.data]
-      console.log(state.comments.data, "commments")
     }
   },
   extraReducers: (builder) => {

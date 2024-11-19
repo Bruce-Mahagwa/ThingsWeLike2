@@ -13,9 +13,7 @@ const Tags = ({ tags }) => {
       <div id="tags-container">
         {tags?.map((tag) => {
           return (
-            <>
               <Link to={`/${tag}`} style={linkStyles} className="tags-container-item" key={tag}>{tag}</Link>
-            </>
           )
         })}
       </div>

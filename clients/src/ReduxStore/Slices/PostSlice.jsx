@@ -20,13 +20,11 @@ const PostSlice = createSlice({
       state.posts.data = [];
     },
     getPostsFromSocketIo(state, post) {
-      state.posts.data = [post.payload, ...state.posts.data];
-      console.log("slice", state.posts.data);
+      state.posts.data = [post.payload, ...state.posts.data];      
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getPosts.fulfilled, (state, action) => {
-      // console.log(action.payload)
+    builder.addCase(getPosts.fulfilled, (state, action) => {      
       if (action.payload.prefix === "posts") {
         state.posts.data = action.payload.data_copy.data
       }

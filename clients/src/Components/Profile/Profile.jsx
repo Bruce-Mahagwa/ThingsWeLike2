@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const Profile = ({ getUserProfile, saveUserProfile }) => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
-  const { userProfile, error } = useSelector(state => state.users); // we get the user's profile from global state
+  const { userProfile, error, status } = useSelector(state => state.users);  // we get the user's profile from global state
   const [addPic, setAddPic] = useState(false); // used to add new profile pic
   const [profile, setProfile] = useState({ // carries the profile state
     firstName: userProfile?.firstName || "",
@@ -58,13 +58,13 @@ const Profile = ({ getUserProfile, saveUserProfile }) => {
     }
   }
 
-  if (error) {
+  if (error) { 
     return <ErrorMessage errorTitle={"Fetching Error"} errorMessage={error} />
   }
   return (
     <main id="user-profile">
       <div className="user-profile-container">
-        {!error && <h3 style={{ textAlign: "center" }}>You have saved your profile successfully</h3>}
+        {!error && status === "fulfilled" && <h3 style={{ textAlign: "center", color: "green" }}>You have saved your profile successfully</h3>}
         <h3>Profile Picture</h3>
         <div className="add-avatar">
           <img src={addPic === false ? profile?.avatar : "#"} alt="avatar" className="user-profile-avatar" />

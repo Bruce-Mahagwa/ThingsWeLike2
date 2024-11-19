@@ -38,6 +38,11 @@ const UserSlice = createSlice({
       state.status = "loading";
     }).addCase(saveUserProfile.rejected, (state, action) => {
       state.error = action.payload;
+      state.status = "failed";
+    }).addCase(saveUserProfile.pending, (state, action) => {
+      state.status= "loading"
+    }).addCase(saveUserProfile.fulfilled, (state, action) => {
+      state.status = "fulfilled";
     })
   }
 })

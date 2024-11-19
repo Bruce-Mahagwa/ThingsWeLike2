@@ -10,9 +10,7 @@ const Layout = () => {
   // protected routes
   const [isAuth, setIsAuth] = useState("");
   const [error, setError] = useState("");
-  const { user } = useSelector(state => state.users);
-  const name = user?.userName;
-
+ 
   useEffect(() => {
     axios.get("/get-token").then((res) => {
       setIsAuth(res.data.token);
@@ -20,19 +18,19 @@ const Layout = () => {
       setError(e.message);
     })
   }, [isAuth])
-  if (name || isAuth) {
+  
+  if (!isAuth && !error) {
+    return <HomePage />;
+  }
+  if (!isAuth && error) {
+    return <ErrorMessage errorTitle={"Authentication Error"} errorMessage={`${error}. Please login to access this page or refresh the page. Sorry for the Inconvenience`} />;
+  }
+  if (isAuth) {
     return (
       <>
         <Outlet />
       </>
     )
-  }
-  if (!isAuth && !error) {
-    return <HomePage />;
-  }
-
-  if (!isAuth && error) {
-    return <ErrorMessage errorTitle={"Authentication Error"} errorMessage={`${error}. Please logout and login again. Sorry for the Inconvenience`} />;
   }
 }
 export default Layout;
