@@ -1,9 +1,11 @@
 // files
 import "./LoginRegister.css"
 // dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+// functions
+import { clearUserLoginRegister } from "../../ReduxStore/Slices/UserSlice";
 const Login = ({ loginUser }) => {
   // variables
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const Login = ({ loginUser }) => {
   }
   const handleLogin = (e) => {
     e.preventDefault();
+    dispatch(clearUserLoginRegister())
     if (formData.email && formData.password) {
       setLoginState({ success: "", loading: true, error: "", btnDisabled: true })
       dispatch(loginUser({ email: formData.email, password: formData.password, doNotLogOut: formData.doNotLogOut })).unwrap().then((res) => {
@@ -51,6 +54,15 @@ const Login = ({ loginUser }) => {
     }
   }
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearUserLoginRegister())
+      }, [7000])
+      return () => clearTimeout(timer);
+    }
+
+  }, [])
   return (
     <main id="login"> 
       <div className="login-register-title">
@@ -61,10 +73,10 @@ const Login = ({ loginUser }) => {
         <div className="credentials-container">
           <input type="email" name="email" placeholder="Write a valid email please" className="credentials-input" onChange={handleChange} value={formData.email} />
           <input type="password" name="password" placeholder="Write a valid password please" className="credentials-input" onChange={handleChange} value={formData.password} />
-          <label htmlFor="doNotLogOut">Do Not Logout
-            <input type="checkbox" name="doNotLogOut" style={{ cursor: "pointer", padding: "0.2em", outline: "4px solid black", width: "1em", height: "1em", marginLeft: "1em", verticalAlign: "bottom" }} onChange={handleChange} checked={formData.doNotLogOut} />
+          <label htmlFor="doNotLogOut" style={{cursor: "pointer"}}>Do Not Logout 
+            <input type="checkbox" name="doNotLogOut" id = "doNotLogOut" style={{ cursor: "pointer", padding: "0.2em", width: "1em", height: "1em", marginLeft: "1em", verticalAlign: "bottom", outline: "none"}} onChange={handleChange} checked={formData.doNotLogOut} />
           </label>
-        </div>
+        </div>  
         <div className="login-register-btn-container">
           {!loginState.loading && <button className="login-register-btn" onClick={handleLogin} onKeyDown={handleLoginKeyDown}>Login</button>}
           {loginState.loading && <h3>Loading ...</h3>}

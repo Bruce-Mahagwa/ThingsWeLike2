@@ -35,7 +35,7 @@ export default function App() {
   axios.defaults.baseURL = "https://things-we-like-api.vercel.app"
   axios.defaults.withCredentials = true;
 
-  return (
+  return ( 
     <BrowserRouter>
       <ScrollTop /> 
       <main class = "container">

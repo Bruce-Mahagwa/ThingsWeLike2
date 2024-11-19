@@ -11,7 +11,11 @@ const initialState = {
 const UserSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    clearUserLoginRegister(state) {
+      state.error = ""
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload.userLoggedIn;
@@ -39,4 +43,4 @@ const UserSlice = createSlice({
 })
 
 export default UserSlice.reducer;
-export const { } = UserSlice.actions;
+export const {clearUserLoginRegister } = UserSlice.actions;

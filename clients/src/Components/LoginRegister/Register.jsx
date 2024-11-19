@@ -3,12 +3,10 @@ import "./LoginRegister.css";
 // dependeincies
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-// variabes
-const btnStyles = {
-  background: "grey",
-  cursor: "not-allowed"
-}
+import { useState, useEffect } from "react";
+// functions
+import { clearUserLoginRegister } from "../../ReduxStore/Slices/UserSlice";
+
 const Register = ({ registerUser }) => {
   // variables
   const dispatch = useDispatch();
@@ -32,8 +30,9 @@ const Register = ({ registerUser }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    dispatch(clearUserLoginRegister())
     if (formData.email && formData.password && formData.userName && formData.password === formData.confirmPassword) {
-
+  
       setRegisterState({ success: "", loading: true, error: "", btnDisabled: true })
       dispatch(registerUser({ userName: formData.userName, email: formData.email, password: formData.password })).unwrap().then((res) => {
         setRegisterState({ success: res.data.success, loading: false, error: "", btnDisabled: false })
@@ -50,14 +49,23 @@ const Register = ({ registerUser }) => {
   const handleRegisterKeyDown = (e) => {
     if (e.key === "Enter") {
       return handleRegister();
-    }
+    } 
   }
   const { error } = useSelector(state => state.users)
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearUserLoginRegister())
+      }, [7000])
+      return () => clearTimeout(timer);
+    }
+
+  }, [])
   return (
     <main id="login"> 
       <div className="login-register-title">
         <h1>Register</h1>
-        {(error || registerState.error) && <h3>{error || registerState.error}</h3>}
+        {(error || registerState.error) && <h3 style={{ color: "red" }}>{error || registerState.error}</h3>}
       </div>
       <div className="login-container">
         <div className="credentials-container">

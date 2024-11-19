@@ -18,6 +18,9 @@
 }
 .credentials-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .credentials-input {
   display: block;
@@ -45,11 +48,9 @@
   opacity: 0.7;
 }
 @media screen and (min-width: 350px) { 
-  .credentials-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  /* .credentials-container {
+    
+  } */
   .credentials-input {
     width: 80%;
   }
@@ -69,7 +70,7 @@
 }
 @media screen and (min-width: 800px) {
   .credentials-input {
-    width: 60%;
+    width: 60%;  
     padding: 0.7em;
   }	
 }
