@@ -38,7 +38,6 @@ const Register = ({ registerUser }) => {
         setRegisterState({ success: res.data.success, loading: false, error: "", btnDisabled: false })
       }).catch((e) => {
         setRegisterState({ success: "", loading: false, error: "We could not register you at the moment. Please try again later", btnDisabled: false })
-        console.log(e)
       }
       )
     }
@@ -56,11 +55,12 @@ const Register = ({ registerUser }) => {
     if (error) {
       const timer = setTimeout(() => {
         dispatch(clearUserLoginRegister())
+        setRegisterState((prev) => {return {...prev, error: ""}})
       }, [7000])
       return () => clearTimeout(timer);
     }
 
-  }, [])
+  }, [error])
   return (
     <main id="login"> 
       <div className="login-register-title">

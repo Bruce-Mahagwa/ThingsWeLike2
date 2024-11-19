@@ -3,7 +3,7 @@ import "./LoginRegister.css"
 // dependencies
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 // functions
 import { clearUserLoginRegister } from "../../ReduxStore/Slices/UserSlice";
 const Login = ({ loginUser }) => {
@@ -55,19 +55,21 @@ const Login = ({ loginUser }) => {
   }
 
   useEffect(() => {
-    if (error) {
+    if (error || loginState.error) {
       const timer = setTimeout(() => {
         dispatch(clearUserLoginRegister())
+        setLoginState((prev) => {return {...prev, error: ""}})
       }, [7000])
       return () => clearTimeout(timer);
     }
 
-  }, [])
+  }, [error, loginState.error])
   return (
     <main id="login"> 
       <div className="login-register-title">
         <h1>Login</h1>
-        {(error || loginState.error) && <h3 style={{ color: "red" }}>{error || loginState.error}</h3>}
+        {error && <h3 style={{ color: "red" }}>{error}</h3>}
+        {loginState.error && <h3 style={{ color: "red" }}>{loginState.error}</h3>}
       </div>
       <div className="login-container">
         <div className="credentials-container">

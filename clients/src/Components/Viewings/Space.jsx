@@ -37,14 +37,13 @@ const Space = ({ getSpace, getPosts, joinSpace }) => {
 
   const { space, error } = useSelector(state => state.spaces);
   const { posts } = useSelector(state => state.posts);
-
   const joinNewSpace = () => {
     setJoinLoading(true);
     dispatch(joinSpace({ spaceId: spaceId })).unwrap().then((res) => {
       setJoinLoading(false);
-      setJoinSuccess("You have successfully joined this space. You can now make posts and comments. Enjoy")
+      setJoinSuccess("You have successfully joined this space. You can now make posts and comments. Enjoy. Head over to your profile and begin making posts.")
     }).catch((e) => {
-      setJoinLoading(false);
+      setJoinLoading(false); 
       setJoinError(true);
     })
   }

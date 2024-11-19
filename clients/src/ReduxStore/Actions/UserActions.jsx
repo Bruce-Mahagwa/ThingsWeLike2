@@ -1,7 +1,6 @@
 // dependencies
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {Navigate} from "react-router-dom"
 
 export const loginUser = createAsyncThunk("users/loginUser", async ({ email, password, doNotLogOut }, { rejectWithValue }) => {
   try {
@@ -33,7 +32,7 @@ export const registerUser = createAsyncThunk("users/registerUser", async ({ user
     return data;
   }
   catch (e) {
-    if (e.reponse.data.error) {
+    if (e.response.data.error) {
       return rejectWithValue(e.response.data.error);
     }
   }
