@@ -181,11 +181,10 @@ const joinSpace = async (req, res) => {
       memberId: userId,
       userName: userName,
     });
-
     if (ifisMember) {
       return res
         .status(500)
-        .json({ error: "You are already a member of this space" });
+        .json({ error: "You are already a member of this space", ifisMember:ifisMember });
     }
     const spaceToJoin = await SpaceModel.findById(spaceId);
     spaceToJoin.members.push({ memberId: userId, userName });
@@ -201,7 +200,7 @@ const joinSpace = async (req, res) => {
   }
 };
 
-const checkIfUserIsInSpace = async (req, res) => {
+const checkIfUserIsInSpace = async (req, res) => { 
   try {
     await connectDB()  
     const { spaceId } = req.params;
