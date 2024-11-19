@@ -189,7 +189,7 @@ const joinSpace = async (req, res) => {
         }
       }
     })
-    if (ifisMember) {
+    if (ifisMember.length > 0) {
       return res
         .status(500)
         .json({ error: "You are already a member of this space", ifisMember:ifisMember });
