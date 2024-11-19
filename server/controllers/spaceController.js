@@ -177,10 +177,6 @@ const joinSpace = async (req, res) => {
     const { spaceId } = req.body;
     const userId = req.user._id;
     const userName = req.user.userName;
-    // const ifisMember = await SpaceModel.findById(spaceId).elemMatch("members", {
-    //   memberId: userId,
-    //   userName: userName,
-    // });
     const ifisMember = await SpaceModel.find({
       _id: spaceId,
       members: {
@@ -202,7 +198,7 @@ const joinSpace = async (req, res) => {
     await user.save();
     return res
       .status(200)
-      .json({ success: "You are now a member of this space", data: member, ifisMember:ifisMember });
+      .json({ success: "You are now a member of this space" });
   } catch (e) {
     return res.status(500).json({ error: "Could not join this space.", e: e.message });
   }
