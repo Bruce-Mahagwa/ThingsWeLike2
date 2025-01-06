@@ -26,7 +26,7 @@ const INITIAL_STATE = {
     status: "idle"
   },
   posts: {
-    posts: { data: [], total: 1, pageNum: 1, pageSize: 3 },
+    posts: { data: [], total: 1, pageNum: 1, pageSize: 5 },
     post: { data: {} },
     spaceName: "",
     error: null,

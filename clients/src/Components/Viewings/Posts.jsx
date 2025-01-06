@@ -15,7 +15,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Posts = ({ getPosts }) => {
   const dispatch = useDispatch()
-  const { posts, error, spaceName } = useSelector(state => state.posts)
+  const { posts, error, spaceName } = useSelector(state => state.posts) 
   const { spaceId } = useParams();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useSearchParams(); // captures the page Number
@@ -23,16 +23,14 @@ const Posts = ({ getPosts }) => {
   const [manageSocketUpdates, setManageSocketUpdates] = useState(false); // sigals that we need to add posts from socket io to regular posts
   const [loadDuringPosting, setLoadDuringPosting] = useState(false); // handles the loading state when a suser is submitting a posr
   const [postPortal, setPostPortal] = useState(false); // handles the state for opening the text area where a user can make a post
-  
+
   const [hasMore, setHasMore] = useState(true);
-  
-  const scrollToView = useRef(null);
 
   let pageNum = page.get("pageNum") || 1;
 
   useEffect(() => {
     dispatch(clearComments()) // this clears the comments array in state when a user leaves the page so that residual comments are not added to other posts
-    if (pageNum > 1 && posts.data.length === 0 || manageSocketUpdates) {
+    if ((pageNum > 1 && posts.data.length === 0) || manageSocketUpdates) {
 
       // checks for a refresh and fetches posts up to pageNum
       // if the pageNum is greater than 1 and the posts array is empty then we know that the page has been refreshed
@@ -60,8 +58,8 @@ const Posts = ({ getPosts }) => {
     }
   }, [spaceId, pageNum])
 
-  function handleChange(e) {
-    // calculates pageNum    
+  function handleChange() {
+    // calculates pageNum
     if (posts.pageNum * posts.pageSize >= posts.total) {
       setHasMore(false);
       return;
@@ -115,28 +113,31 @@ const Posts = ({ getPosts }) => {
       channel.unbind("postsInPosts")
     }
   }, [posts])
+
   if (error || localError) {
     return <ErrorMessage errorTitle={"Fetching Data Error"} errorMessage={error || "Could Not Load Resource. Please try again Later"} />
   }
   return (
     <main id="posts">
-      <div className="posts-container" ref={scrollToView}>
+      <div className="posts-container">
         <Link to={`/user/spaces/${spaceId}`} style={{ display: "block", marginBottom: "0.5em" }}>BACK</Link>
         <button onClick={openPostPortal} className="load-btn">Write Post</button>
         <h2 style={{ textAlign: "center", marginBottom: "1em" }} className='title'>{spaceName}</h2>
+        {posts.data.length > 0 && 
         <InfiniteScroll
           dataLength={posts.data.length}
-          next = {handleChange}
-          hasMore = {hasMore}
-          endMessage = {<h4>No more posts</h4>}
-          scrollableTarget = {document.getElementById("posts")}
+          loader={<h4>Loading...</h4>}
+          next={handleChange}
+          hasMore={true}          
+          endMessage={<h4>No more posts</h4>}
+          scrollThreshold={0.50}
         >
-          {posts.data.length > 0 && posts.data.map((post) => {
+          {posts.data.map((post) => {
             return (
-              <Post key={post._id} description={post.description} owner={post.owner[0].userName} postedAt={post.createdAt} postId={post._id ? post._id : null} spaceId={spaceId} />
+              <Post description={post.description} owner={post.owner[0].userName} postedAt={post.createdAt} postId={post._id ? post._id : null} spaceId={spaceId} />
             )
           })}
-        </InfiniteScroll>
+        </InfiniteScroll>}
       </div>
       {loading && <Loading />}
       {postPortal && (<CreatePost closePostPortal={closePostPortal} spaceId={spaceId} postPortal={postPortal} setLoadDuringPosting={setLoadDuringPosting} loadDuringPosting={loadDuringPosting} />)}

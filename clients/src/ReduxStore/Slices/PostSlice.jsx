@@ -4,7 +4,7 @@ import { getPosts, getPost, createPost } from "../Actions/PostActions";
 
 // variables
 const initialState = {
-  posts: { data: [], total: 0, pageNum: 1, pageSize: 3 },
+  posts: { data: [], total: 0, pageNum: 1, pageSize: 5 },
   post: { data: {} },
   spaceName: "",
   error: null,

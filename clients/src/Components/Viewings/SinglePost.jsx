@@ -33,8 +33,6 @@ const SinglePost = ({ getPost, getComments }) => {
   const [hasMore, setHasMore] = useState(true);
 
   let pageNum = page.get("pageNum") || 1;
-  const scrollToView = useRef(null);
-
   useEffect(() => {
     dispatch(clearPosts()); // we do this to ensure that any residual posts data is cleared when leaving the post page
     setLoading(true) // we set our loading true
@@ -47,7 +45,7 @@ const SinglePost = ({ getPost, getComments }) => {
   }, [postId])
 
   const fetchComments = () => {
-    if (pageNum > 1 && comments.data.length === 0 || manageSocketUpdates) {
+    if ((pageNum > 1 && comments.data.length === 0) || manageSocketUpdates) {
       // here we check if page has been refreshed. in that case we fetch all posts until the pageNumber
       dispatch(clearComments()) // we empty the comment state array because we expect to fetch all comments up to pageNum
       setLoadComments(true)
@@ -57,8 +55,8 @@ const SinglePost = ({ getPost, getComments }) => {
         setLoadComments(false);
         setLocalError(true)
       })
-    } 
-    else {      
+    }
+    else {
       setLoadComments(true)
       setManageSocketUpdates(false) // ensures that we skip the first if statement
       dispatch(getComments({ spaceId: spaceId, postId: postId, pageNum: pageNum })).then((res) => { // normal fetching of comments
@@ -75,7 +73,7 @@ const SinglePost = ({ getPost, getComments }) => {
   }, [pageNum]);
 
 
-  function handleChange(e) {
+  function handleChange() {
     // this handles the change of page for comments
     if (comments.pageNum * comments.pageSize >= comments.total) {
       setHasMore(false);
@@ -143,8 +141,8 @@ const SinglePost = ({ getPost, getComments }) => {
     postWriter = owner.userName
   }
   return (
-    <main id="single-post-page">
-      <Link to={`/user/spaces/${spaceId}/posts`} style={{ marginBottom: "1em" }}>BACK</Link>
+    <main id="single-post-page" style = {{padding: "1em"}}>
+      <Link to={`/user/spaces/${spaceId}/posts`} style={{ display: "block", marginBottom: "1em" }}>BACK</Link>
       <div className="main-post-container">
         <div className="main-post">
           <h4>{postWriter || ""}</h4>
@@ -158,26 +156,23 @@ const SinglePost = ({ getPost, getComments }) => {
 
       {commentPortal && (<ReplyPost closeCommentPortal={closeCommentPortal} spaceId={spaceId} postId={postId} commentPortal={commentPortal} loadDuringPostComments={loadDuringPostComments} setLoadDuringPostComments={setLoadDuringPostComments} />)}
 
-      <div className="comments" id = "comments">
+      <div className="comments">
         <h2>Comments</h2>
-        <div className="comments-section" ref={scrollToView}>
-          <InfiniteScroll
-            dataLength={comments.data.length}
-            next = {handleChange}
-            hasMore = {hasMore}
-            endMessage = {<h4>No more comments</h4>}
-            scrollableTarget = {document.getElementById("comments")}
-          >
-            {comments.data.length > 0 && comments.data.map((comment) => {
-              return (
-                <Comment key={comment._id} owner={comment.owner} description={comment.comment} postedAt={comment.postedAt} userName={comment?.userName} />
-              )
-            })}
-          </InfiniteScroll>
-        </div>
-        {loadComments && <Loading />}
-        <div className="main-post-links">
-        </div>
+        <InfiniteScroll
+          dataLength = {comments.data.length}
+          next = {handleChange}
+          hasMore={true}
+          endMessage={<h4>No more comments</h4>}
+          scrollThreshold={0.50}
+        >
+          {comments.data.length > 0 && comments.data.map((comment) => {
+            return (
+              <Comment key={comment._id} owner={comment.owner} description={comment.comment} postedAt={comment.postedAt} userName={comment?.userName} />
+            )
+          })}
+        </InfiniteScroll>
+        {!loadComments && comments.data.length === 0 && <h4>No comments yet</h4>}
+        {loadComments && <Loading />}        
       </div>
     </main>
   )

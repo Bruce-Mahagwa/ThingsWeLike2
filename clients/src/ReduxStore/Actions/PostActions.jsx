@@ -32,11 +32,11 @@ export const getPost = createAsyncThunk(
   "post/getPost",
   async ({ spaceId, postId, prefix }, { rejectWithValue }) => {
     try {
-      if (prefix = "posts") {
+      if (prefix === "posts") {
         const { data } = await axios.get(`/posts/${spaceId}/posts/${postId}`);
         return data;
       }
-      else if (prefix = "spaces") {
+      else if (prefix === "spaces") {
         const { data } = await axios.get(`/spaces/user/${spaceId}/posts/${postId}`)
         return data;
       }
