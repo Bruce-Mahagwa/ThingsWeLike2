@@ -8,6 +8,6 @@ const Loading = () => {
         <img src={Loadinggif} alt="loading gif" className="loading-gif" />
       </div> 
     </div>
-  )
+  ) 
 }
 export default Loading;

@@ -126,7 +126,6 @@ const Posts = ({ getPosts }) => {
         {posts.data.length > 0 && 
         <InfiniteScroll
           dataLength={posts.data.length}
-          loader={<h4>Loading...</h4>}
           next={handleChange}
           hasMore={true}          
           endMessage={<h4>No more posts</h4>}
